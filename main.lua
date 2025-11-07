@@ -36,6 +36,11 @@ function love.load()
     levelUpTimer = 0
     levelUpSound = love.audio.newSource("sound/level up.mp3", "static")
 
+    bgm = love.audio.newSource("sound/bg.mp3", "stream")
+    bgm:setLooping(true)  
+    bgm:setVolume(0.5)     
+    bgm:play()  
+
      gamoverTimer = 0
      overdealy = 3
     level = 1
@@ -151,7 +156,9 @@ function love.draw()
         love.graphics.print("LEVEL UP!", 220, 130, 0, 2, 2)
     end
 
+
     if gameover then
+        
         love.graphics.printf("Game Over", 0, love.graphics.getHeight()/2 - 10, love.graphics.getWidth(), "center")
     end
     

@@ -94,6 +94,12 @@ function love.update(dt)
                 
                 end
         end    
+
+        for _, obj in ipairs(onigiri) do 
+            obj.y = obj.y + obj.speed *dt
+            obj.rotation = obj.rotation + obj.rotationSpeed * dt
+        end
+
     if lives <= 0 then 
         gameover = true;
         if gameover then
@@ -132,7 +138,9 @@ function love.draw()
 
     
     for _, obj in ipairs(onigiri) do
-        love.graphics.draw(riceball, obj.x, obj.y,0, obj.size, obj.size)
+        local ox = riceball:getWidth() / 2
+        local oy = riceball:getHeight() / 2
+        love.graphics.draw(riceball, obj.x + ox, obj.y + oy, obj.rotation, obj.size, obj.size, ox, oy)
     end
 
     love.graphics.setColor(1,1,1)
@@ -156,14 +164,17 @@ function spawnObject()
     obj.x = math.random(0, love.graphics.getWidth() - 20)
     obj.y = -15
     obj.size = 2
+    obj.rotation = math.random() * 2 * math.pi 
+    obj.rotationSpeed = math.random(-1, 1) * 0.5
      if level == 1 then
-        obj.speed = math.random(180, 220)
-    elseif level == 2 then
-        obj.speed = math.random(240, 280)
-        spwanInterval = 1
+        obj.speed = math.random(110, 150)
         speed = 400
+    elseif level == 2 then
+        obj.speed = math.random(160, 200)
+        spwanInterval = 1
+        speed = 430
     else
-        obj.speed = math.random(280, 300)
+        obj.speed = math.random(210, 230)
     end
     table.insert(onigiri, obj)
 end
